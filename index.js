@@ -15,7 +15,7 @@ import { initCars } from "./pages/cars/cars.js";
 import { initAddCar } from "./pages/addCar/addCar.js";
 import { initLogin } from "./pages/login/login.js";
 import { initSignup } from "./pages/signup/signup.js";
-import { initFindEditCar } from "./pages/findEditCar/findEditCar.js";
+import { initAccountSettings } from "./pages/accountSettings/accountSettings.js";
 import { initListReservationsAll } from "./pages/showReservations/reservations.js";
 
 window.addEventListener("load", async () => {
@@ -24,8 +24,8 @@ window.addEventListener("load", async () => {
   const templateAddCar = await loadHtml("./pages/addCar/addCar.html");
   const templateSignup = await loadHtml("./pages/signup/signup.html");
   const templateLogin = await loadHtml("./pages/login/login.html");
-  const templateFindEditCar = await loadHtml(
-    "./pages/findEditCar/findEditCar.html"
+  const templateAccountSettings = await loadHtml(
+    "./pages/accountSettings/accountSettings.html"
   );
   const templateReserve = await loadHtml("./pages/reservation/reserve.html");
   const templateReservations = await loadHtml(
@@ -60,9 +60,9 @@ window.addEventListener("load", async () => {
         //(templateCars, "content");
         //initCars();
       },
-      "/find-edit-car": (match) => {
-        //renderTemplate(templateFindEditCar, "content");
-        //initFindEditCar(match);
+      "/account-settings": (match) => {
+        renderTemplate(templateAccountSettings, "content");
+        initAccountSettings(match);
       },
       "/add-car": (match) => {
         // renderTemplate(templateAddCar, "content");
