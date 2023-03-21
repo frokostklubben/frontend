@@ -7,7 +7,7 @@ const URL = `${API_URL}/members`
 //Store reference to commonly used nodes
 let usernameInput
 let emailInput
-let firstnameInput
+let firstNameInput
 
 export async function initAccountSettings(match) {
 
@@ -17,7 +17,7 @@ export async function initAccountSettings(match) {
   document.getElementById("btn-delete-member").onclick = deleteMember;
   usernameInput = document.getElementById("username")
   emailInput = document.getElementById("email")
-  firstnameInput = document.getElementById("firstname")
+  firstNameInput = document.getElementById("first-name")
 
   setInfoText("");
   //Check if id is provided as a Query parameter
@@ -100,7 +100,7 @@ function setInfoText(txt) {
 function renderMember(member) {
   usernameInput.value = member.username;
   emailInput.value = member.email;
-  firstnameInput.value = member.firstName
+  firstNameInput.value = member.firstName
 }
 
 //TODO: Change when login is implemented
@@ -110,9 +110,9 @@ async function submitEditedMember(evt) {
     const member = {}
     member.username = usernameInput.value
     member.email = emailInput.value
-    member.firstName = firstnameInput.value
+    member.firstName = firstNameInput.value
 
-    if (member.username === "" || member.email === "" || member.firstname == "") {
+    if (member.username === "" || member.email === "" || member.firstName == "") {
       setStatusMsg(`Missing fields required for a submit`, false)
       return
     }
@@ -126,7 +126,7 @@ async function submitEditedMember(evt) {
     const PUT_URL = URL + "/" + member.username
     const newMember = await fetch(PUT_URL, options).then(handleHttpErrors)
     clearInputFields()
-    setStatusMsg(`Member with username '${newMember.username}' was successfully edited`)
+    setStatusMsg(`Member with username '${member.username}' was successfully edited`)
   } catch (err) {
     if (err.apiError) {
       setStatusMsg(err.apiError.message, true)
@@ -141,5 +141,5 @@ function clearInputFields() {
   //********************* */
   usernameInput.value = "";
   emailInput.value = "";
-  firstnameInput.value = "";
+  firstNameInput.value = "";
 }
