@@ -10,14 +10,14 @@
     }
   </style>
   <div style="max-width:900px;">
-    <h1>Find Car</h1>
+    <h1>Find member</h1>
     <hr />
     <div class="row">
       <div class="col-md-2">
-        <input id="car-id-input" placeholder="Enter car-id" />
+        <input id="username-search" placeholder="Enter username" />
       </div>
       <div class="col-md-2">
-        <button class="btn btn-primary" id="btn-fetch-car">Get Car</button>
+        <button class="btn btn-primary" id="btn-fetch-member">Get member</button>
       </div>
       <image id="spinner" src="../../images/transparent-spinner.gif"  style="width:100px;display:none"></image>
     </div>
@@ -26,53 +26,37 @@
     <div >
       <div class="row">
         <div class="col-md-1">
-          <label>ID</label>
+          <label>Username</label>
         </div>
         <div class="col-md-3">
-          <input id="car-id" style="font-weight: bolder" disabled></input>
+          <input id="username" style="font-weight: bolder"></input> <!--disabled tilføjes senere-->
         </div>
       </div>
       <div class="row">
         <div class="col-md-1">
-          <label for="brand">Brand</label>
+          <label for="brand">Email</label>
         </div>
         <div class="col-md-10">
-          <input id="brand">
+          <input id="email">
         </div>
       </div>
       <div class="row">
         <div class="col-md-1">
-          <label for="model">Model</label>
+          <label for="model">Firstname</label>
         </div>
         <div class="col-md-10">
-          <input id="model">
+          <input id="firstname">
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-1">
-          <label for="model">price (day)</label>
-        </div>
-        <div class="col-md-4">
-          <input type=number id="price-pr-day" required>
-        </div>
-        <div class="col-md-2">
-          <label for="best-discount">
-            Best discount
-          </label>
-        </div>
-        <div class="col-md-4">
-          <input type=number id="best-discount">
-        </div>
-      </div>
 
       <p id="status" style="min-height: 1em;"> </p>
       <div class="row" style="margin-top:2em;">
         <div class="col-md-3">
-          <button id="btn-submit-edited-car" class="btn btn-dark car-btn-width">Submit Changes</button>
+          <button id="btn-submit-edited-member" class="btn btn-dark member-btn-width">Submit Changes</button>
         </div>
         <div class="col-md-3">
-          <button id="btn-delete-car" class="btn btn-dark car-btn-width">Delete Car</button>
+          <button id="btn-delete-member" class="btn btn-dark member-btn-width">Delete Member</button>
         </div>
       </div>
 
