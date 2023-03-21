@@ -100,7 +100,7 @@ function setInfoText(txt) {
 function renderMember(member) {
   usernameInput.value = member.username;
   emailInput.value = member.email;
-  firstnameInput.value = member.firstname
+  firstnameInput.value = member.firstName
 }
 
 //TODO: Change when login is implemented
@@ -110,7 +110,7 @@ async function submitEditedMember(evt) {
     const member = {}
     member.username = usernameInput.value
     member.email = emailInput.value
-    member.firstname = firstnameInput.value
+    member.firstName = firstnameInput.value
 
     if (member.username === "" || member.email === "" || member.firstname == "") {
       setStatusMsg(`Missing fields required for a submit`, false)
