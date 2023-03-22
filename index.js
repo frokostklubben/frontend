@@ -9,28 +9,17 @@ import {
   loadHtml,
 } from "./utils.js";
 
-import { initReservation } from "./pages/reservation/reserve.js";
-import { initMembers } from "./pages/members/members.js";
-import { initCars } from "./pages/cars/cars.js";
-import { initAddCar } from "./pages/addCar/addCar.js";
 import { initLogin } from "./pages/login/login.js";
 import { initSignup } from "./pages/signup/signup.js";
 import { initAccountSettings } from "./pages/accountSettings/accountSettings.js";
-import { initListReservationsAll } from "./pages/showReservations/reservations.js";
 
 window.addEventListener("load", async () => {
-  const templateCars = await loadHtml("./pages/cars/cars.html");
-  const templateMembers = await loadHtml("./pages/members/members.html");
-  const templateAddCar = await loadHtml("./pages/addCar/addCar.html");
   const templateSignup = await loadHtml("./pages/signup/signup.html");
-  const templateLogin = await loadHtml("./pages/login/login.html");
+  //const templateLogin = await loadHtml("./pages/login/login.html");
   const templateAccountSettings = await loadHtml(
     "./pages/accountSettings/accountSettings.html"
   );
-  const templateReserve = await loadHtml("./pages/reservation/reserve.html");
-  const templateReservations = await loadHtml(
-    "./pages/showReservations/reservations.html"
-  );
+
   const templateNotFound = await loadHtml("./pages/notFound/notFound.html");
 
   adjustForMissingHash();
@@ -56,29 +45,9 @@ window.addEventListener("load", async () => {
           Recipe app under construction <span style='font-size:2em;'></span>
         </p>
      `),
-      "/cars": () => {
-        //(templateCars, "content");
-        //initCars();
-      },
       "/account-settings": (match) => {
         renderTemplate(templateAccountSettings, "content");
         initAccountSettings(match);
-      },
-      "/add-car": (match) => {
-        // renderTemplate(templateAddCar, "content");
-        // initAddCar();
-      },
-      "/members": () => {
-        // renderTemplate(templateMembers, "content");
-        // initMembers();
-      },
-      "/reserve-car": () => {
-        // renderTemplate(templateReserve, "content");
-        // initReservation();
-      },
-      "/reservations": () => {
-        // renderTemplate(templateReservations, "content");
-        // initListReservationsAll();
       },
       "/signup": () => {
         renderTemplate(templateSignup, "content");

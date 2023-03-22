@@ -17,7 +17,8 @@ export async function initAccountSettings(match) {
     submitEditedMember;
   document.getElementById("btn-delete-member").onclick = deleteMember;
   // Is this the strategy to use encode to avoid xxx?
-  usernameInput = encode(document.getElementById("username"));
+  //usernameInput = encode(document.getElementById("username"));
+  usernameInput = document.getElementById("username");
   emailInput = document.getElementById("email");
   firstNameInput = document.getElementById("first-name");
 

@@ -24,3 +24,8 @@ Styles used for labels and input fields in boot strap columns
 .car-btn-width {
   width: 100%;
 }
+
+/* The width of every page */
+.main-container {
+  max-width: 900px;
+}
