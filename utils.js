@@ -1,21 +1,3 @@
-export function makeOptionsWithToken(method, body, addToken) {
-  const opts = {
-    method: method,
-    headers: {
-      "Content-type": "application/json",
-      Accept: "application/json",
-    },
-  };
-  if (body) {
-    opts.body = JSON.stringify(body);
-  }
-  if (addToken && localStorage.getItem("token")) {
-    opts.headers.Authorization = "Bearer " + localStorage.getItem("token");
-  }
-
-  return opts;
-}
-
 export function renderTemplate(template, contentId) {
   const content = document.getElementById(contentId);
   if (!content) {
@@ -84,9 +66,7 @@ export async function handleHttpErrors(res) {
   if (!res.ok) {
     const errorResponse = await res.json();
     const error = new Error(errorResponse.message);
-    // TODO: remove this?
     error.apiError = errorResponse;
-
     throw error;
   }
   return res.json();
@@ -118,4 +98,34 @@ export function encode(str) {
   str = str.replace(/"/g, "&quot;");
   str = str.replace(/'/g, "&#039;");
   return str;
+}
+
+export function makeOptions(method, body, addToken) {
+  const opts = {
+    method: method,
+    headers: {
+      "Content-type": "application/json",
+      Accept: "application/json",
+    },
+  };
+  if (body) {
+    opts.body = JSON.stringify(body);
+  }
+  if (addToken && localStorage.getItem("token")) {
+    opts.headers.Authorization = "Bearer " + localStorage.getItem("token");
+  }
+
+  return opts;
+}
+
+/**
+ * Set's the status message, either styled as an error, or as a normal message
+ * @param {String} msg The status message to display
+ * @param {boolean} [isError] true, to style in red
+ */
+export function setStatusMsg(msg, isError) {
+  const color = isError ? "red" : "darkgreen";
+  const statusNode = document.getElementById("status");
+  statusNode.style.color = color;
+  statusNode.innerText = msg;
 }

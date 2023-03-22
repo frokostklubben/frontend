@@ -15,7 +15,7 @@ import { initAccountSettings } from "./pages/accountSettings/accountSettings.js"
 
 window.addEventListener("load", async () => {
   const templateSignup = await loadHtml("./pages/signup/signup.html");
-  //const templateLogin = await loadHtml("./pages/login/login.html");
+  const templateLogin = await loadHtml("./pages/login/login.html");
   const templateAccountSettings = await loadHtml(
     "./pages/accountSettings/accountSettings.html"
   );
@@ -54,8 +54,8 @@ window.addEventListener("load", async () => {
         initSignup();
       },
       "/login": (match) => {
-        // renderTemplate(templateLogin, "content");
-        //initLogin();
+        renderTemplate(templateLogin, "content");
+        initLogin();
       },
     })
     .notFound(() => {
