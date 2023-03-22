@@ -85,8 +85,8 @@ window.addEventListener("load", async () => {
         initSignup();
       },
       "/login": (match) => {
-        // renderTemplate(templateLogin, "content");
-        //initLogin();
+        renderTemplate(templateLogin, "content");
+        initLogin();
       },
     })
     .notFound(() => {
