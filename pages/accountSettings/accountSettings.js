@@ -1,4 +1,4 @@
-import { handleHttpErrors, makeOptionsWithToken } from "../../utils.js";
+import { handleHttpErrors, makeOptionsWithToken, encode } from "../../utils.js";
 import { API_URL, FETCH_NO_API_ERROR } from "../../settings.js";
 
 //Add id to this URL to get a single user
@@ -16,12 +16,13 @@ export async function initAccountSettings(match) {
   document.getElementById("btn-submit-edited-member").onclick =
     submitEditedMember;
   document.getElementById("btn-delete-member").onclick = deleteMember;
-  usernameInput = document.getElementById("username");
+  // Is this the strategy to use encode to avoid xxx?
+  usernameInput = encode(document.getElementById("username"));
   emailInput = document.getElementById("email");
   firstNameInput = document.getElementById("first-name");
 
   setInfoText("");
-  //Check if id is provided as a Query parameter
+  //Check if username is provided as a Query parameter
   if (match?.params?.username) {
     const username = match.params.username;
     try {
@@ -66,6 +67,9 @@ function getUsernameFromInputField() {
 }
 
 async function fetchMember(username) {
+  // Make ready for token from logged in member:
+  //const options = makeOptionsWithToken("GET", null, true)
+
   setStatusMsg("", false);
   try {
     document.getElementById("spinner").style.display = "block";
@@ -119,6 +123,8 @@ async function submitEditedMember(evt) {
       return;
     }
 
+    // Make ready for token:
+    //const optionsWithToken = makeOptionsWithToken("PUT", body, true)
     const options = {};
     options.method = "PUT";
     options.headers = { "Content-type": "application/json" };
