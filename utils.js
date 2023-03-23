@@ -1,28 +1,29 @@
-
 export function renderTemplate(template, contentId) {
-  const content = document.getElementById(contentId)
+  const content = document.getElementById(contentId);
   if (!content) {
-    throw Error("No Element found for provided content id")
+    throw Error("No Element found for provided content id");
   }
-  content.innerHTML = ""
-  content.append(template)
+  content.innerHTML = "";
+  content.append(template);
 }
 
 export async function loadHtml(page) {
-  const resHtml = await fetch(page).then(r => {
+  const resHtml = await fetch(page).then((r) => {
     if (!r.ok) {
-      throw new Error(`Failed to load the page: '${page}' `)
+      throw new Error(`Failed to load the page: '${page}' `);
     }
-    return r.text()
+    return r.text();
   });
-  const parser = new DOMParser()
-  const content = parser.parseFromString(resHtml, "text/html")
-  const div = content.querySelector(".template")
+  const parser = new DOMParser();
+  const content = parser.parseFromString(resHtml, "text/html");
+  const div = content.querySelector(".template");
   if (!div) {
-    throw new Error(`No outer div with class 'template' found in file '${page}'`)
+    throw new Error(
+      `No outer div with class 'template' found in file '${page}'`
+    );
   }
-  return div
-};
+  return div;
+}
 
 /**
  * Only meant for when Navigo is set to use Hash based routing (Always this semester)
@@ -31,9 +32,10 @@ export async function loadHtml(page) {
  * Call it before you start using the router (add the specific routes)
  */
 export function adjustForMissingHash() {
-  let path = window.location.hash
-  if (path == "") { //Do this only for hash
-    path = "#/"
+  let path = window.location.hash;
+  if (path == "") {
+    //Do this only for hash
+    path = "#/";
     window.history.pushState({}, path, window.location.href + path);
   }
 }
@@ -46,13 +48,13 @@ export function adjustForMissingHash() {
  */
 export function setActiveLink(topnav, activeUrl) {
   const links = document.getElementById(topnav).querySelectorAll("a");
-  links.forEach(child => {
-    child.classList.remove("active")
+  links.forEach((child) => {
+    child.classList.remove("active");
     //remove leading '/' if any
     if (child.getAttribute("href").replace(/\//, "") === activeUrl) {
-      child.classList.add("active")
+      child.classList.add("active");
     }
-  })
+  });
 }
 
 /**
@@ -63,32 +65,30 @@ export function setActiveLink(topnav, activeUrl) {
 export async function handleHttpErrors(res) {
   if (!res.ok) {
     const errorResponse = await res.json();
-    const error = new Error(errorResponse.message)
-    error.apiError = errorResponse
-    throw error
+    const error = new Error(errorResponse.message);
+    error.apiError = errorResponse;
+    throw error;
   }
-  return res.json()
+  return res.json();
 }
-
 
 /**
- * Table-rows are required to be inside a table tag, so use this small utility function to santitize a string with TableRows only 
+ * Table-rows are required to be inside a table tag, so use this small utility function to santitize a string with TableRows only
  * (made from data with map)
  * SEE Here for info related to how to use DomPurify and the function below this semester here:
- * https://docs.google.com/document/d/14aC77ITi9sLCMruYUchu4L93dBqKnoja3I7TwR0lXw8/edit#heading=h.jj4ss771miw5 
-*/
+ * https://docs.google.com/document/d/14aC77ITi9sLCMruYUchu4L93dBqKnoja3I7TwR0lXw8/edit#heading=h.jj4ss771miw5
+ */
 export function sanitizeStringWithTableRows(tableRows) {
-  let secureRows = DOMPurify.sanitize("<table>" + tableRows + "</table>")
-  secureRows = secureRows.replace("<table>", "").replace("</table>", "")
-  return secureRows
+  let secureRows = DOMPurify.sanitize("<table>" + tableRows + "</table>");
+  secureRows = secureRows.replace("<table>", "").replace("</table>", "");
+  return secureRows;
 }
-
 
 /**
  * HINT --> USE DOMPurify.santitize(..) instead, to sanitize a full string of tags to be inserted via innerHTLM
  * The encoder method we have used when inserting untrusted data via the innerHTML property
  * Ref: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
- * @param str --> the string to encode 
+ * @param str --> the string to encode
  * @returns the encoded string
  */
 export function encode(str) {

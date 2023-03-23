@@ -1,10 +1,6 @@
-
 /*
-
 Styles used for labels and input fields in boot strap columns
-
 */
-
 .row label {
   margin-top: 1.5em;
   vertical-align: middle;
@@ -15,7 +11,21 @@ Styles used for labels and input fields in boot strap columns
   margin-top: 1em;
   padding: 0.35em;
   border-radius: 4px;
-  width:100%;
+  width: 100%;
   border: 1px solid lightgray;
 }
 
+/* Styles for accountSettings */
+.row button {
+  margin-top: 1em;
+  padding: 0.5em;
+}
+
+.car-btn-width {
+  width: 100%;
+}
+
+/* The width of every page */
+.main-container {
+  max-width: 900px;
+}
