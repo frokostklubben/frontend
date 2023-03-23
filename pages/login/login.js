@@ -16,6 +16,7 @@ export function initLogin() {
 export function logout() {
   localStorage.clear();
   displayLoginStatus();
+  window.router.navigate("");
 }
 
 async function login() {
@@ -43,23 +44,23 @@ async function login() {
 
 function displayLoginStatus() {
   const username = localStorage.getItem("user");
-  const loginLink = document.getElementById("login-link");
-  const signUpLink = document.getElementById("signup-link");
+  //const loginLink = document.getElementById("login-link");
+  //const signUpLink = document.getElementById("signup-link");
 
   // Check if the user is logged in
   if (username) {
     document.getElementById("span-id").textContent = username;
     document.getElementById("login-name").style.display = "block";
     // Show log out
-    document.getElementById("logout-id").style.display = "block";
+    //document.getElementById("logout-id").style.display = "block";
     document.getElementById("login-id").style.display = "none";
     document.getElementById("navbarDropdown").style.display = "block";
-
+    document.getElementById("signup-link").style.display = "none";
     // Remove the sign up link from the nav bar
-    signUpLink.parentNode.removeChild(signUpLink);
+    //signUpLink.parentNode.removeChild(signUpLink);
   } else {
     document.getElementById("navbarDropdown").style.display = "none";
-    document.getElementById("logout-id").style.display = "none";
+    //document.getElementById("logout-id").style.display = "none";
     document.getElementById("login-id").style.display = "block";
     document.getElementById("login-name").style.display = "none";
     document.getElementById("signup-link").style.display = "block";
