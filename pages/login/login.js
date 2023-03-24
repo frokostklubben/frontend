@@ -42,26 +42,33 @@ async function login() {
   }
 }
 
+function toggleMenu() {
+  const dropdown = document.getElementById("navbarDropdown");
+
+  dropdown.style.display =
+    dropdown.style.display === "block" ? "none" : "block";
+}
+
 function displayLoginStatus() {
   const username = localStorage.getItem("user");
   const dropdown = document.getElementById("navbarDropdown");
 
+  // document.getElementById("span-id").removeEventListener("click", toggleMenu);
+
   if (username) {
     document.getElementById("span-id").textContent = username;
     document.getElementById("login-name").style.display = "block";
-
     document.getElementById("login-id").style.display = "none";
     document.getElementById("navbarDropdown").style.display = "block";
     document.getElementById("signup-link").style.display = "none";
-    // Remove the sign up link from the nav bar
-    //signUpLink.parentNode.removeChild(signUpLink);
 
     // Show dropdown on click
-    document.getElementById("span-id").addEventListener("click", () => {
-      dropdown.style.display =
-        dropdown.style.display === "block" ? "none" : "block";
-    });
+    dropdown.style.display = "none";
+    document.getElementById("span-id").addEventListener("click", toggleMenu);
   } else {
+    // Hide dropdown on click
+    dropdown.style.display = "none";
+    document.getElementById("span-id").removeEventListener("click", toggleMenu);
     document.getElementById("navbarDropdown").style.display = "none";
     document.getElementById("login-id").style.display = "block";
     document.getElementById("login-name").style.display = "none";
