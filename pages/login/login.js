@@ -1,5 +1,6 @@
 import { API_URL } from "../../settings.js";
 import { encode, handleHttpErrors, makeOptions, setStatusMsg} from "../../utils.js";
+import { loadFridge } from "../fridge/fridge.js";
 
 
 const URL = API_URL + "/auth/login"
@@ -17,6 +18,8 @@ async function login() {
     const userDto = {username, password}
 
     const options = makeOptions("POST", userDto, false)
+
+    loadFridge()
 
     try {
         const response = await fetch(URL, options).then(handleHttpErrors)

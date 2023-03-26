@@ -12,14 +12,14 @@ import {
 import { initLogin } from "./pages/login/login.js";
 import { initSignup } from "./pages/signup/signup.js";
 import { initAccountSettings } from "./pages/accountSettings/accountSettings.js";
+import { initfridge } from "./pages/fridge/fridge.js";
+
 
 window.addEventListener("load", async () => {
   const templateSignup = await loadHtml("./pages/signup/signup.html");
   const templateLogin = await loadHtml("./pages/login/login.html");
-  const templateAccountSettings = await loadHtml(
-    "./pages/accountSettings/accountSettings.html"
-  );
-
+  const templateAccountSettings = await loadHtml("./pages/accountSettings/accountSettings.html");
+  const templateFridge = await loadHtml("./pages/fridge/fridge.html");
   const templateNotFound = await loadHtml("./pages/notFound/notFound.html");
 
   adjustForMissingHash();
@@ -52,6 +52,10 @@ window.addEventListener("load", async () => {
       "/signup": () => {
         renderTemplate(templateSignup, "content");
         initSignup();
+      },
+      "/fridge": (match) => {
+        renderTemplate(templateFridge, "content");
+        initfridge();
       },
       "/login": (match) => {
         renderTemplate(templateLogin, "content");
