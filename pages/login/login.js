@@ -19,8 +19,6 @@ async function login() {
 
     const options = makeOptions("POST", userDto, false)
 
-    loadFridge()
-
     try {
         const response = await fetch(URL, options).then(handleHttpErrors)
         localStorage.setItem("user", response.username)
