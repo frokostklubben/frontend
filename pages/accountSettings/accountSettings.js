@@ -1,39 +1,25 @@
-import { handleHttpErrors, encode } from "../../utils.js";
+import { handleHttpErrors, makeOptions, encode } from "../../utils.js";
 import { API_URL, FETCH_NO_API_ERROR } from "../../settings.js";
 
 //Add id to this URL to get a single user
 const URL = `${API_URL}/members`;
 
 //Store reference to commonly used nodes
-let usernameInput;
-let emailInput;
-let firstNameInput;
+let usernameLoggedIn;
 
 export async function initAccountSettings(match) {
-  document.getElementById("spinner").style.display = "none";
-  document.getElementById("btn-fetch-member").onclick =
-    getUsernameFromInputField;
+  usernameLoggedIn = localStorage.getItem("user");
+
+  // Når man trykker på drop-down menu, er det her man skal fetche medlemmet?
+  const loggedInMember = (document.getElementById("edit-account").onclick =
+    fetchMember);
+
   document.getElementById("btn-submit-edited-member").onclick =
     submitEditedMember;
-  document.getElementById("btn-delete-member").onclick = deleteMember;
-  // Is this the strategy to use encode to avoid xxx?
-  //usernameInput = encode(document.getElementById("username"));
-  usernameInput = document.getElementById("username");
-  emailInput = document.getElementById("email");
-  firstNameInput = document.getElementById("first-name");
 
-  setInfoText("");
-  //Check if username is provided as a Query parameter
-  if (match?.params?.username) {
-    const username = match.params.username;
-    try {
-      fetchMember(username);
-    } catch (err) {
-      setStatusMsg("Could not find member: " + username, true);
-    }
-  } else {
-    clearInputFields();
-  }
+  document.getElementById("btn-delete-member").onclick = deleteMember;
+
+  //.setInfoText("");
 }
 
 async function deleteMember() {
@@ -43,9 +29,9 @@ async function deleteMember() {
       setStatusMsg("No member found to delete", true);
       return;
     }
-    const options = makeOptionsWithToken("DELETE", null, false);
+    const options = makeOptions("DELETE", null, true);
 
-    await fetch(URL + "/" + memberToDelete, options);
+    await fetch(URL, options);
     setStatusMsg("Member succesfully deleted", false);
     clearInputFields();
   } catch (err) {
@@ -58,28 +44,19 @@ async function deleteMember() {
   }
 }
 
-function getUsernameFromInputField() {
-  const username = document.getElementById("username-search").value;
-  if (!username) {
-    setStatusMsg("Please provide a username", true);
-    return;
-  }
-  fetchMember(username);
-}
-
-async function fetchMember(username) {
-  // Make ready for token from logged in member:
-  //const options = makeOptionsWithToken("GET", null, true)
+async function fetchMember() {
+  const options = makeOptions("GET", null, true);
 
   setStatusMsg("", false);
   try {
-    document.getElementById("spinner").style.display = "block";
-    const member = await fetch(URL + "/" + username).then(handleHttpErrors);
-    document.getElementById("spinner").style.display = "none";
-    renderMember(member);
+    const member = await fetch(URL, options).then(handleHttpErrors);
+    document.getElementById("username").value = localStorage.getItem("user");
+    document.getElementById("email").value = member.email;
+    document.getElementById("first-name").value = member.firstName;
+
     setInfoText("Edit values and press 'Submit changes' or delete if needed");
+    return member;
   } catch (err) {
-    document.getElementById("spinner").style.display = "none";
     setStatusMsg(err.message, true);
   }
 }
@@ -100,20 +77,16 @@ function setInfoText(txt) {
   document.getElementById("info-text").innerText = txt;
 }
 
-function renderMember(member) {
-  usernameInput.value = member.username;
-  emailInput.value = member.email;
-  firstNameInput.value = member.firstName;
-}
+async function submitEditedMember() {
+  let emailInput = document.getElementById("email").value;
+  let firstNameInput = document.getElementById("first-name").value;
+  document.getElementById("username").value = localStorage.getItem("user");
 
-//TODO: Change when login is implemented
-async function submitEditedMember(evt) {
-  evt.preventDefault();
   try {
     const member = {};
-    member.username = usernameInput.value;
-    member.email = emailInput.value;
-    member.firstName = firstNameInput.value;
+    member.username = localStorage.getItem("user");
+    member.email = emailInput;
+    member.firstName = firstNameInput;
 
     if (
       member.username === "" ||
@@ -124,15 +97,12 @@ async function submitEditedMember(evt) {
       return;
     }
 
-    // Make ready for token:
-    //const optionsWithToken = makeOptionsWithToken("PUT", body, true)
-    const options = {};
-    options.method = "PUT";
-    options.headers = { "Content-type": "application/json" };
-    options.body = JSON.stringify(member);
+    console.log(member);
 
-    const PUT_URL = URL + "/" + member.username;
-    const newMember = await fetch(PUT_URL, options).then(handleHttpErrors);
+    const options = makeOptions("PUT", member, true);
+    const newMember = await fetch(URL, options).then(handleHttpErrors);
+    console.log(newMember);
+
     clearInputFields();
     setStatusMsg(
       `Member with username '${member.username}' was successfully edited`
@@ -147,8 +117,7 @@ async function submitEditedMember(evt) {
 }
 
 function clearInputFields() {
-  document.getElementById("username").value = "";
-  usernameInput.value = "";
-  emailInput.value = "";
-  firstNameInput.value = "";
+  // document.getElementById("username").value = "";
+  // emailInput.value = "";
+  // firstNameInput.value = "";
 }
