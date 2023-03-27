@@ -5,6 +5,7 @@ import {
   makeOptions,
   setStatusMsg,
 } from "../../utils.js";
+import { loadFridge } from "../fridge/fridge.js";
 
 const URL = API_URL + "/auth/login";
 
