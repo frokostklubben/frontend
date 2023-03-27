@@ -33,3 +33,16 @@ Styles used for labels and input fields in boot strap columns
 #navbarDropdown {
   left: -90px; /* adjust as needed */
 }
+
+/*Triangle shape next to username logged in*/
+.dropdown-toggle-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.3em;
+  vertical-align: middle;
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-left: 0.3em solid transparent;
+  color: cornflowerblue;
+}
