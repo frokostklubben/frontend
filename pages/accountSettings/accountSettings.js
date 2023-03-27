@@ -12,40 +12,33 @@ let firstNameInput;
 export async function initAccountSettings(match) {
   usernameLoggedIn = localStorage.getItem("user");
 
-  const username = await fetchMember(usernameLoggedIn);
-  console.log(username);
+  // Når man trykker på drop-down menu, er det her man skal fetche medlemmet?
+  const loggedInMember = (document.getElementById("navbarDropdown").onclick =
+    fetchMember);
+  console.log(loggedInMember);
 
-  // Show the member logged in
-  document.getElementById("username").value = usernameLoggedIn;
+  try {
+    const username = await fetchMember();
+    console.log(username);
+    // Show the member logged in
+    document.getElementById("username").value = usernameLoggedIn;
 
-  //document.getElementById("btn-submit-edited-member").onclick = submitEditedMember(member);
-
-  //TODO: FIX document.getElementById("btn-delete-member").onclick = deleteMember(username);
-
-  // Ændre til det medlemmet som er logget ind
-  // document.getElementById("email").value = ;
-  // firstNameInput = username
-  //document.getElementById("first-name");
-
-  // .setInfoText("");
-  /*   //Check if username is provided as a Query parameter
-
-  if (match?.params?.username) {
-    const username = match.params.username;
-    try {
-      fetchMember(username);
-    } catch (err) {
-      setStatusMsg("Could not find member: " + username, true);
-    }
-  } else {
-    clearInputFields();
+    // Ændre til det medlemmet som er logget ind
+    document.getElementById("email").value = username.email;
+    document.getElementById("firstName").value = username.firstName;
+  } catch (err) {
+    console.log(err.message);
   }
+
+  document.getElementById("btn-submit-edited-member").onclick =
+    submitEditedMember;
+
+  document.getElementById("btn-delete-member").onclick = deleteMember;
+
+  //.setInfoText("");
 }
 
- */
-}
-
-async function deleteMember(member) {
+async function deleteMember() {
   try {
     const memberToDelete = document.getElementById("username").value;
     if (memberToDelete === "") {
@@ -67,30 +60,18 @@ async function deleteMember(member) {
   }
 }
 
-/* function getUsernameFromInputField() {
-  const username = document.getElementById("username-search").value;
-  if (!username) {
-    setStatusMsg("Please provide a username", true);
-    return;
-  }
-  fetchMember(username);
-}
- */
-async function fetchMember(username) {
-  // Make ready for token from logged in member:
+async function fetchMember() {
   const options = makeOptions("GET", null, true);
 
   setStatusMsg("", false);
   try {
-    const member = await fetch(URL + "/" + username, options).then(
-      handleHttpErrors
-    );
-
+    // Nu henter den alle medlemmer!!! Selv om det endpoint ikke findes
+    const member = await fetch(URL, options).then(handleHttpErrors);
     renderMember(member);
+
     setInfoText("Edit values and press 'Submit changes' or delete if needed");
-    return member;
+    // return member;
   } catch (err) {
-    //document.getElementById("spinner").style.display = "none";
     setStatusMsg(err.message, true);
   }
 }
@@ -117,12 +98,10 @@ function renderMember(member) {
   firstNameInput.value = member.firstName;
 }
 
-//TODO: Change when login is implemented
-async function submitEditedMember(member) {
+async function submitEditedMember() {
   try {
     const member = {};
-    // Is this correct?
-    member.username = usernameLoggedIn;
+    member.username = localStorage.getItem("user");
     member.email = emailInput.value;
     member.firstName = firstNameInput.value;
 
@@ -142,8 +121,7 @@ async function submitEditedMember(member) {
     options.headers = { "Content-type": "application/json" };
     options.body = JSON.stringify(member);
 
-    const PUT_URL = URL + "/" + member.username;
-    const newMember = await fetch(PUT_URL, options).then(handleHttpErrors);
+    const newMember = await fetch(URL, options).then(handleHttpErrors);
     clearInputFields();
     setStatusMsg(
       `Member with username '${member.username}' was successfully edited`
@@ -159,7 +137,6 @@ async function submitEditedMember(member) {
 
 function clearInputFields() {
   document.getElementById("username").value = "";
-  // usernameInput.value = "";
   emailInput.value = "";
   firstNameInput.value = "";
 }
