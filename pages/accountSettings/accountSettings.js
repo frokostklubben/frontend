@@ -6,29 +6,13 @@ const URL = `${API_URL}/members`;
 
 //Store reference to commonly used nodes
 let usernameLoggedIn;
-let emailInput;
-let firstNameInput;
 
 export async function initAccountSettings(match) {
   usernameLoggedIn = localStorage.getItem("user");
 
   // Når man trykker på drop-down menu, er det her man skal fetche medlemmet?
-  const loggedInMember = (document.getElementById("navbarDropdown").onclick =
+  const loggedInMember = (document.getElementById("edit-account").onclick =
     fetchMember);
-  console.log(loggedInMember);
-
-  try {
-    const username = await fetchMember();
-    console.log(username);
-    // Show the member logged in
-    document.getElementById("username").value = usernameLoggedIn;
-
-    // Ændre til det medlemmet som er logget ind
-    document.getElementById("email").value = username.email;
-    document.getElementById("firstName").value = username.firstName;
-  } catch (err) {
-    console.log(err.message);
-  }
 
   document.getElementById("btn-submit-edited-member").onclick =
     submitEditedMember;
@@ -47,7 +31,7 @@ async function deleteMember() {
     }
     const options = makeOptions("DELETE", null, true);
 
-    await fetch(URL + "/" + memberToDelete, options);
+    await fetch(URL, options);
     setStatusMsg("Member succesfully deleted", false);
     clearInputFields();
   } catch (err) {
@@ -65,12 +49,13 @@ async function fetchMember() {
 
   setStatusMsg("", false);
   try {
-    // Nu henter den alle medlemmer!!! Selv om det endpoint ikke findes
     const member = await fetch(URL, options).then(handleHttpErrors);
-    renderMember(member);
+    document.getElementById("username").value = localStorage.getItem("user");
+    document.getElementById("email").value = member.email;
+    document.getElementById("first-name").value = member.firstName;
 
     setInfoText("Edit values and press 'Submit changes' or delete if needed");
-    // return member;
+    return member;
   } catch (err) {
     setStatusMsg(err.message, true);
   }
@@ -92,18 +77,16 @@ function setInfoText(txt) {
   document.getElementById("info-text").innerText = txt;
 }
 
-function renderMember(member) {
-  usernameLoggedIn = localStorage.getItem("user");
-  emailInput.value = member.email;
-  firstNameInput.value = member.firstName;
-}
-
 async function submitEditedMember() {
+  let emailInput = document.getElementById("email").value;
+  let firstNameInput = document.getElementById("first-name").value;
+  document.getElementById("username").value = localStorage.getItem("user");
+
   try {
     const member = {};
     member.username = localStorage.getItem("user");
-    member.email = emailInput.value;
-    member.firstName = firstNameInput.value;
+    member.email = emailInput;
+    member.firstName = firstNameInput;
 
     if (
       member.username === "" ||
@@ -114,14 +97,12 @@ async function submitEditedMember() {
       return;
     }
 
-    // Make ready for token:
-    //const optionsWithToken = makeOptions("PUT", body, true)
-    const options = {};
-    options.method = "PUT";
-    options.headers = { "Content-type": "application/json" };
-    options.body = JSON.stringify(member);
+    console.log(member);
 
+    const options = makeOptions("PUT", member, true);
     const newMember = await fetch(URL, options).then(handleHttpErrors);
+    console.log(newMember);
+
     clearInputFields();
     setStatusMsg(
       `Member with username '${member.username}' was successfully edited`
@@ -136,7 +117,7 @@ async function submitEditedMember() {
 }
 
 function clearInputFields() {
-  document.getElementById("username").value = "";
-  emailInput.value = "";
-  firstNameInput.value = "";
+  // document.getElementById("username").value = "";
+  // emailInput.value = "";
+  // firstNameInput.value = "";
 }
