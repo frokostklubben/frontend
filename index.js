@@ -9,7 +9,7 @@ import {
   loadHtml,
 } from "./utils.js";
 
-import { initLogin } from "./pages/login/login.js";
+import { initLogin, logout } from "./pages/login/login.js";
 import { initSignup } from "./pages/signup/signup.js";
 import { initAccountSettings } from "./pages/accountSettings/accountSettings.js";
 
@@ -56,6 +56,9 @@ window.addEventListener("load", async () => {
       "/login": (match) => {
         renderTemplate(templateLogin, "content");
         initLogin();
+      },
+      "/logout": () => {
+        logout();
       },
     })
     .notFound(() => {

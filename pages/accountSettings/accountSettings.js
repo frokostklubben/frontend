@@ -1,4 +1,4 @@
-import { handleHttpErrors, makeOptionsWithToken, encode } from "../../utils.js";
+import { handleHttpErrors, makeOptions, encode } from "../../utils.js";
 import { API_URL, FETCH_NO_API_ERROR } from "../../settings.js";
 
 //Add id to this URL to get a single user
@@ -43,7 +43,7 @@ async function deleteMember() {
       setStatusMsg("No member found to delete", true);
       return;
     }
-    const options = makeOptionsWithToken("DELETE", null, false);
+    const options = makeOptions("DELETE", null, false);
 
     await fetch(URL + "/" + memberToDelete, options);
     setStatusMsg("Member succesfully deleted", false);
@@ -69,7 +69,7 @@ function getUsernameFromInputField() {
 
 async function fetchMember(username) {
   // Make ready for token from logged in member:
-  //const options = makeOptionsWithToken("GET", null, true)
+  //const options = makeOptions("GET", null, true)
 
   setStatusMsg("", false);
   try {
@@ -125,7 +125,7 @@ async function submitEditedMember(evt) {
     }
 
     // Make ready for token:
-    //const optionsWithToken = makeOptionsWithToken("PUT", body, true)
+    //const optionsWithToken = makeOptions("PUT", body, true)
     const options = {};
     options.method = "PUT";
     options.headers = { "Content-type": "application/json" };

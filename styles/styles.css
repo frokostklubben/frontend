@@ -29,3 +29,7 @@ Styles used for labels and input fields in boot strap columns
 .main-container {
   max-width: 900px;
 }
+
+#navbarDropdown {
+  left: -90px; /* adjust as needed */
+}
