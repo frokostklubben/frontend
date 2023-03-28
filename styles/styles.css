@@ -34,6 +34,11 @@ Styles used for labels and input fields in boot strap columns
   left: -90px; /* adjust as needed */
 }
 
+.btn-delete {
+  background-color: rgba(255,0,0,.5);
+  color: white;
+}
+
 /*Triangle shape next to username logged in*/
 .dropdown-toggle-icon {
   display: inline-block;
