@@ -22,7 +22,7 @@ export async function loadFridge() {
     <tr id="delete-${fooditem.id}">
         <td class="stored-item removeable" id="${fooditem.id}">${fooditem.name}</td>
         <td>
-        <button class="removeable btn-delete"  id="btn-${fooditem.id}"> Remove </button> 
+        <button class="removeable btn btn-delete"  id="btn-${fooditem.id}"> Remove </button> 
         </td>
     </tr>    
     `).join("")

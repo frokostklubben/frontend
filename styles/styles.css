@@ -33,3 +33,14 @@ Styles used for labels and input fields in boot strap columns
 #navbarDropdown {
   left: -90px; /* adjust as needed */
 }
+
+/*
+div > button {
+  margin-top: 2%;
+}
+*/
+
+.btn-delete {
+  background-color: rgba(255,0,0,.5);
+  color: white;
+}
