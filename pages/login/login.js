@@ -54,22 +54,27 @@ function displayLoginStatus() {
   const username = localStorage.getItem("user");
   const dropdown = document.getElementById("navbarDropdown");
 
-  // document.getElementById("span-id").removeEventListener("click", toggleMenu);
-
   if (username) {
     document.getElementById("span-id").textContent = username;
     document.getElementById("login-name").style.display = "block";
     document.getElementById("login-id").style.display = "none";
     document.getElementById("navbarDropdown").style.display = "block";
+
     document.getElementById("signup-link").style.display = "none";
 
     // Show dropdown on click
     dropdown.style.display = "none";
-    document.getElementById("span-id").addEventListener("click", toggleMenu);
+    //document.getElementById("span-id").addEventListener("click", toggleMenu);
+    // name-and-arrow
+    document
+      .getElementById("name-and-arrow")
+      .addEventListener("click", toggleMenu);
   } else {
     // Hide dropdown on click
     dropdown.style.display = "none";
-    document.getElementById("span-id").removeEventListener("click", toggleMenu);
+    document
+      .getElementById("name-and-arrow")
+      .removeEventListener("click", toggleMenu);
     document.getElementById("navbarDropdown").style.display = "none";
     document.getElementById("login-id").style.display = "block";
     document.getElementById("login-name").style.display = "none";
