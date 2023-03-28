@@ -13,6 +13,7 @@ import { initLogin, logout } from "./pages/login/login.js";
 import { initSignup } from "./pages/signup/signup.js";
 import { initAccountSettings } from "./pages/accountSettings/accountSettings.js";
 import { initfridge } from "./pages/fridge/fridge.js";
+import { initRecipes } from "./pages/recipes/recipes.js";
 
 
 window.addEventListener("load", async () => {
@@ -20,6 +21,7 @@ window.addEventListener("load", async () => {
   const templateLogin = await loadHtml("./pages/login/login.html");
   const templateAccountSettings = await loadHtml("./pages/accountSettings/accountSettings.html");
   const templateFridge = await loadHtml("./pages/fridge/fridge.html");
+  const templateRecipes = await loadHtml("./pages/recipes/recipes.html");
   const templateNotFound = await loadHtml("./pages/notFound/notFound.html");
 
   adjustForMissingHash();
@@ -56,6 +58,10 @@ window.addEventListener("load", async () => {
       "/fridge": (match) => {
         renderTemplate(templateFridge, "content");
         initfridge();
+      },
+      "/recipes": (match) => {
+        renderTemplate(templateRecipes, "content");
+        initRecipes();
       },
       "/login": (match) => {
         renderTemplate(templateLogin, "content");
