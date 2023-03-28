@@ -61,6 +61,8 @@ function displayLoginStatus() {
     document.getElementById("navbarDropdown").style.display = "block";
 
     document.getElementById("signup-link").style.display = "none";
+    //Only logged in users should see recipes and ingredients in the menu bar
+    document.getElementById("logged-in-only").style.display = "block";
 
     // Show dropdown on click
     dropdown.style.display = "none";
@@ -79,5 +81,6 @@ function displayLoginStatus() {
     document.getElementById("login-id").style.display = "block";
     document.getElementById("login-name").style.display = "none";
     document.getElementById("signup-link").style.display = "block";
+    document.getElementById("logged-in-only").style.display = "none";
   }
 }

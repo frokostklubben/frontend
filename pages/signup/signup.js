@@ -60,9 +60,7 @@ async function saveMember(evt) {
   try {
     const newMember = await fetch(URL, postOptions).then(handleHttpErrors);
     clearInputFields();
-    console.log("Kommer vi hit?");
     setStatusMsg(`Successfully created member "${newMember.username}"`);
-    //document.getElementById("goto-login").style.display = "block";
   } catch (err) {
     setStatusMsg(err.message + FETCH_NO_API_ERROR, true);
     if (err.apiError) {
