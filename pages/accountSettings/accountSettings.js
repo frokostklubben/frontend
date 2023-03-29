@@ -54,7 +54,6 @@ async function fetchMember() {
     document.getElementById("email").value = member.email;
     document.getElementById("first-name").value = member.firstName;
 
-    setInfoText("Edit values and press 'Submit changes' or delete if needed");
     return member;
   } catch (err) {
     setStatusMsg(err.message, true);

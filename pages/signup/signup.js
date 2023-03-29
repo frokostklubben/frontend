@@ -20,7 +20,6 @@ export function initSignup() {
     document.getElementById("goto-login").style.display = "none";
   };
   clearInputFields();
-  setStatusMsg("");
 }
 
 /**
