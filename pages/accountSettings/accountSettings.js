@@ -1,5 +1,6 @@
 import { handleHttpErrors, makeOptions, encode } from "../../utils.js";
 import { API_URL, FETCH_NO_API_ERROR } from "../../settings.js";
+import { displayLoginStatus } from "../login/login.js";
 
 //Add id to this URL to get a single user
 const URL = `${API_URL}/members`;
@@ -33,7 +34,12 @@ async function deleteMember() {
 
     await fetch(URL, options);
     setStatusMsg("Member succesfully deleted", false);
-    clearInputFields();
+    localStorage.clear();
+    displayLoginStatus();
+    window.router.navigate("");
+
+    //clearInputFields();
+    
   } catch (err) {
     if (err.apiError) {
       setStatusMsg(err.apiError.message, true);
@@ -42,6 +48,7 @@ async function deleteMember() {
       console.log(err.message + FETCH_NO_API_ERROR);
     }
   }
+
 }
 
 async function fetchMember() {
@@ -116,7 +123,7 @@ async function submitEditedMember() {
 }
 
 function clearInputFields() {
-  // document.getElementById("username").value = "";
-  // emailInput.value = "";
-  // firstNameInput.value = "";
+   //document.getElementById("username").value = "";
+   //emailInput.value = "";
+   //firstNameInput.value = "";
 }

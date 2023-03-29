@@ -50,7 +50,7 @@ function toggleMenu() {
     dropdown.style.display === "block" ? "none" : "block";
 }
 
-function displayLoginStatus() {
+export function displayLoginStatus() {
   const username = localStorage.getItem("user");
   const dropdown = document.getElementById("navbarDropdown");
 
