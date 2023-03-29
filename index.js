@@ -45,7 +45,7 @@ window.addEventListener("load", async () => {
         <div class="container front-page">
         <div class="row justify-content-center align-items-start">
           <div class="col-lg-6 col-md-8 order-lg-1 order-md-2">
-            <h2 class="mt-5">Cook with what you have, and love what you make!</h2>
+            <h2 style="margin-top: 0">Cook with what you have, and love what you make!</h2>
             <p class="lead">
               Welcome to The Food Recipe App (FRAPP), where you can easily discover new recipes based on the ingredients you have on hand! Our app is designed to help you create delicious meals without the hassle of searching through countless recipes and grocery store aisles.
             </p>
@@ -60,7 +60,7 @@ window.addEventListener("load", async () => {
             </p>
           </div>
           <div class="col-lg-6 col-md-8 order-lg-2 order-md-1">
-      <img class="img-frontpage img-fluid my-4" src="./images/vegetables.jpg" alt="Picture of vegetables by Dennis Klein" <a href="https://stocksnap.io/photo/ingredients-food-H500S57QYI">Photo</a> by <a href="https://stocksnap.io/author/47948">Dennis Klein</a> on <a href="https://stocksnap.io">StockSnap</a>
+      <img class="img-frontpage img-fluid" src="./images/vegetables.jpg" alt="Picture of vegetables by Dennis Klein" <a href="https://stocksnap.io/photo/ingredients-food-H500S57QYI">Photo</a> by <a href="https://stocksnap.io/author/47948">Dennis Klein</a> on <a href="https://stocksnap.io">StockSnap</a>
     </div>
   </div>
 </div>
