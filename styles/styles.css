@@ -53,7 +53,7 @@ Styles used for labels and input fields in boot strap columns
 }
 
 /* index.html: Center the content on the page */
-#content {
+.front-page {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
@@ -66,7 +66,7 @@ h2 {
 }
 
 /* Style the image */
-img {
+.img-frontpage {
   display: flex;
   margin: 0 auto;
   border-radius: 5px;
