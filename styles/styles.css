@@ -35,7 +35,7 @@ Styles used for labels and input fields in boot strap columns
 }
 
 .btn-delete {
-  background-color: rgba(255,0,0,.5);
+  background-color: rgba(255, 0, 0, 0.5);
   color: white;
 }
 
@@ -50,4 +50,34 @@ Styles used for labels and input fields in boot strap columns
   border-right: 0.3em solid transparent;
   border-left: 0.3em solid transparent;
   color: cornflowerblue;
+}
+
+/* index.html: Center the content on the page */
+.front-page {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Style the heading */
+h2 {
+  font-size: 3em;
+  margin-top: 2em;
+}
+
+/* Style the image */
+.img-frontpage {
+  display: flex;
+  margin: 0 auto;
+  border-radius: 5px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Style the text */
+p {
+  font-size: 1.5em;
+  margin-top: 1em;
+  color: darkgray;
+  line-height: 1.5;
 }
